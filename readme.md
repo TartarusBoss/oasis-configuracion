@@ -1,10 +1,11 @@
-Matias Herrera Vanegas
+# Oasis Configuración
 
-Universidad de Medellín
+Sistema de gestión de escenarios deportivos.
 
-Gestión de la Configuración
-
-Semestre 2025-2
+**Autor**: Matias Herrera Vanegas  
+**Universidad**: Universidad de Medellín  
+**Asignatura**: Gestión de la Configuración  
+**Semestre**: 2025-2
 
 
 **Frontend**: Aplicación web desarrollada en **React + Vite**.
