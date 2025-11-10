@@ -57,14 +57,24 @@ jobs:
       - name: Install frontend deps and build
         working-directory: ./frontend
         run: |
-          rm -rf node_modules package-lock.json
+          echo "Cleaning installation..."
+          rm -rf node_modules package-lock.json dist
+          
+          echo "Installing dependencies..."
           npm install
-          npm install -D vite@4.5.0 @vitejs/plugin-react@4.2.0
+          
+          echo "Installing Vite explicitly..."
+          npm install -D vite@4.5.0 @vitejs/plugin-react@4.2.0 @types/react@^18.2.0 @types/react-dom@^18.2.0
+          
+          echo "Verifying Vite installation..."
           npm ls vite
-          npm run build
+          
+          echo "Running build..."
+          npm run build --verbose
         env:
           CI: true
           NODE_ENV: production
+          DEBUG: vite:*
 
   build-and-push:
     name: Build and push Docker images
