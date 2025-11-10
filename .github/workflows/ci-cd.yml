@@ -57,10 +57,13 @@ jobs:
       - name: Install frontend deps and build
         working-directory: ./frontend
         run: |
+          rm -rf node_modules package-lock.json
           npm install
-          npm install -D vite @vitejs/plugin-react
-          npx vite build
+          npm install -D vite@4.5.0 @vitejs/plugin-react@4.2.0
+          npm ls vite
+          npm run build
         env:
+          CI: true
           NODE_ENV: production
 
   build-and-push:
