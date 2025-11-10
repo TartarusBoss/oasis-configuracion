@@ -58,8 +58,8 @@ jobs:
         working-directory: ./frontend
         run: |
           npm install
-          npm install vite@latest
-          npm run build
+          npm install -D vite @vitejs/plugin-react
+          npx vite build
         env:
           NODE_ENV: production
 
