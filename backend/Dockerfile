@@ -6,15 +6,15 @@ WORKDIR /app
 
 # Copiar archivos del backend
 WORKDIR /app/backend
-COPY backend/package*.json ./
+COPY package*.json ./
 RUN npm install
 
 # Instalar MySQL client
 RUN apt-get update && apt-get install -y default-mysql-client
 
 # Copiar el código fuente del backend asegurando todos los subdirectorios
-COPY backend/src /app/backend/src
-COPY backend/init.sh ./init.sh
+COPY src /app/backend/src
+COPY init.sh ./init.sh
 
 # Dar permisos a los scripts
 RUN chmod +x /app/backend/init.sh
