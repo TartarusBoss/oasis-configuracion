@@ -14,15 +14,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
-    rollupOptions: {
-      external: [],
-      output: {
-        manualChunks: undefined
-      }
-    },
-    commonjsOptions: {
-      include: [/node_modules/],
-      extensions: ['.js', '.jsx']
-    }
+    minify: 'terser',
+    target: 'es2015'
   }
 })

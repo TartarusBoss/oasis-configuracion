@@ -58,19 +58,17 @@ jobs:
         working-directory: ./frontend
         run: |
           echo "Cleaning installation..."
-          rm -rf node_modules package-lock.json dist
+          rm -rf node_modules package-lock.json dist .vite
           
-          echo "Installing dependencies..."
-          npm install
+          echo "Installing dependencies with clean slate..."
+          npm cache clean --force
+          npm install --no-package-lock
           
-          echo "Installing Vite explicitly..."
-          npm install -D vite@4.5.0 @vitejs/plugin-react@4.2.0 @types/react@^18.2.0 @types/react-dom@^18.2.0
-          
-          echo "Verifying Vite installation..."
-          npm ls vite
+          echo "Verifying installation..."
+          npm list vite
           
           echo "Running build..."
-          npm run build --verbose
+          NODE_ENV=production npm run build
         env:
           CI: true
           NODE_ENV: production
