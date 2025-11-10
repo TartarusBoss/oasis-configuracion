@@ -1,6 +1,6 @@
-test('isOverlap detects overlapping intervals', async () => {
-  const mod = await import('../src/utils/reservaUtils.js');
-  const { isOverlap, parseDateTime } = mod;
+import { isOverlap, parseDateTime } from '../src/utils/reservaUtils.js';
+
+test('isOverlap detects overlapping intervals', () => {
   const aStart = parseDateTime('2025-11-10', '08:00:00');
   const aEnd = parseDateTime('2025-11-10', '10:00:00');
   const bStart = parseDateTime('2025-11-10', '09:00:00');
@@ -8,9 +8,7 @@ test('isOverlap detects overlapping intervals', async () => {
   expect(isOverlap(aStart, aEnd, bStart, bEnd)).toBe(true);
 });
 
-test('isOverlap detects non-overlap', async () => {
-  const mod = await import('../src/utils/reservaUtils.js');
-  const { isOverlap, parseDateTime } = mod;
+test('isOverlap detects non-overlap', () => {
   const aStart = parseDateTime('2025-11-10', '08:00:00');
   const aEnd = parseDateTime('2025-11-10', '10:00:00');
   const bStart = parseDateTime('2025-11-10', '10:00:00');

@@ -59,6 +59,7 @@ jobs:
         run: |
           rm -f package-lock.json
           npm install
+          npm install -g vite
           npm run build
         env:
           NODE_ENV: production
