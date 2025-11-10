@@ -57,9 +57,8 @@ jobs:
       - name: Install frontend deps and build
         working-directory: ./frontend
         run: |
-          rm -f package-lock.json
           npm install
-          npm install -g vite
+          npm install vite@latest
           npm run build
         env:
           NODE_ENV: production
