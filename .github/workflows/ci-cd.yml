@@ -59,34 +59,27 @@ jobs:
         run: |
           echo "Node version:"
           node --version
-          
+
           echo "NPM version:"
           npm --version
-          
+
           echo "Cleaning installation..."
           rm -rf node_modules package-lock.json dist .vite
-          
-          echo "Installing dependencies..."
-          npm install
-          
-          echo "Installing Vite globally..."
-          npm install -g vite
-          
-          echo "Installing dev dependencies explicitly..."
-          npm install -D vite@4.4.5 @vitejs/plugin-react@4.0.3
-          
-          echo "Checking installed packages..."
-          npm ls
-          
-          echo "Checking Vite binary..."
-          which vite
-          
-          echo "Running build with full debug..."
-          npm run build --dd
+          npm cache clean --force
+
+          echo "Installing dependencies (including devDependencies)..."
+          npm install --include=dev --no-audit --no-fund
+
+          echo "Verify vite is installed locally:"
+          ls -la node_modules/vite || true
+
+          echo "Listing node_modules (short):"
+          ls -1 node_modules | sed -n '1,200p'
+
+          echo "Running production build using local vite..."
+          NODE_ENV=production npm run build
         env:
           CI: true
-          NODE_ENV: production
-          DEBUG: vite:*
 
   build-and-push:
     name: Build and push Docker images
