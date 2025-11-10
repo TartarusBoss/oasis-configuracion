@@ -57,18 +57,32 @@ jobs:
       - name: Install frontend deps and build
         working-directory: ./frontend
         run: |
+          echo "Node version:"
+          node --version
+          
+          echo "NPM version:"
+          npm --version
+          
           echo "Cleaning installation..."
           rm -rf node_modules package-lock.json dist .vite
           
-          echo "Installing dependencies with clean slate..."
-          npm cache clean --force
-          npm install --no-package-lock
+          echo "Installing dependencies..."
+          npm install
           
-          echo "Verifying installation..."
-          npm list vite
+          echo "Installing Vite globally..."
+          npm install -g vite
           
-          echo "Running build..."
-          NODE_ENV=production npm run build
+          echo "Installing dev dependencies explicitly..."
+          npm install -D vite@4.4.5 @vitejs/plugin-react@4.0.3
+          
+          echo "Checking installed packages..."
+          npm ls
+          
+          echo "Checking Vite binary..."
+          which vite
+          
+          echo "Running build with full debug..."
+          npm run build --dd
         env:
           CI: true
           NODE_ENV: production
