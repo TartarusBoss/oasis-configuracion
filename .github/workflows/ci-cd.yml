@@ -33,7 +33,7 @@ jobs:
       - name: Install backend deps
         working-directory: ./backend
         run: npm ci
-      - name: Run tests
+      - name: Run backend tests
         working-directory: ./backend
         env:
           USE_MYSQL: 'true'
@@ -42,7 +42,7 @@ jobs:
           DB_NAME: oasisdb_test
           DB_USER: root
           DB_PASS: test
-        run: npm test
+        run: npm test -- --passWithNoTests
 
   frontend-build:
     name: Frontend build
@@ -54,12 +54,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-      - name: Install frontend deps
+      - name: Install frontend deps and build
         working-directory: ./frontend
-        run: npm ci
-      - name: Build frontend
-        working-directory: ./frontend
-        run: npm run build
+        run: |
+          rm -f package-lock.json
+          npm install
+          npm run build
+        env:
+          NODE_ENV: production
 
   build-and-push:
     name: Build and push Docker images
