@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin logs - Oasis</title>
+  <style>
+    body { font-family: Inter, system-ui, Arial, sans-serif; margin: 16px; color:#222 }
+    h1 { margin:0 0 12px }
+    .row { display:flex; gap:16px; align-items:flex-start }
+    .panel { border:1px solid #ddd; padding:12px; border-radius:6px; background:#fafafa }
+    table { border-collapse:collapse; width:100% }
+    th,td { padding:6px 8px; border-bottom:1px solid #eee; text-align:left }
+    .small { font-size:0.9em; color:#555 }
+    #refresh { margin-left:8px }
+  </style>
+</head>
+<body>
+  <h1>Oasis — Monitor de logs (en memoria)</h1>
+  <div class="row">
+    <div class="panel" style="flex:0 0 320px">
+      <h3>Contadores por minuto</h3>
+      <div class="small">Últimos minutos con actividad</div>
+      <div id="counts"></div>
+      <div style="margin-top:8px">
+        <button id="refresh">Actualizar</button>
+        <button id="simulate">Simular login (success)</button>
+      </div>
+    </div>
+
+    <div class="panel" style="flex:1">
+      <h3>Eventos recientes</h3>
+      <div class="small">Muestra últimos 200 eventos (Intento / Success / Failure)</div>
+      <table id="events"><thead><tr><th>ts</th><th>correo</th><th>status</th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <script>
+    const fmt = ts => new Date(ts).toLocaleString();
+    async function load() {
+      try {
+        const [countsRes, eventsRes] = await Promise.all([
+          fetch('/admin/login-counts'),
+          fetch('/admin/logs?limit=200')
+        ]);
+        const counts = await countsRes.json();
+        const events = await eventsRes.json();
+
+        const cdiv = document.getElementById('counts');
+        if (!counts || counts.length===0) cdiv.innerHTML = '<div class="small">Sin datos aún</div>';
+        else {
+          cdiv.innerHTML = '<ol>' + counts.slice(-10).map(c => `<li><strong>${c.count}</strong> — ${new Date(c.minute).toLocaleString()}</li>`).join('') + '</ol>';
+        }
+
+        const tbody = document.querySelector('#events tbody');
+        tbody.innerHTML = events.map(e => `<tr><td class="small">${fmt(e.ts)}</td><td>${e.correo||''}</td><td>${e.status}</td></tr>`).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    document.getElementById('refresh').addEventListener('click', load);
+    document.getElementById('simulate').addEventListener('click', async () => {
+      await fetch('/admin/simulate-login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ correo: 'sim@example.com', status: 'success' }) });
+      load();
+    });
+
+    // auto-refresh every 5s
+    load();
+    setInterval(load, 5000);
+  </script>
+</body>
+</html>
