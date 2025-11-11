@@ -1,0 +1,21 @@
+{
+  "annotations": { "list": [] },
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Login attempts per minute (from logs)",
+      "datasource": "Loki",
+      "targets": [
+        {
+          "expr": "count_over_time({job=\"varlogs\"} |= \"Intento de login para\" [1m])",
+          "legendFormat": "attempts/min",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"h":8,"w":24,"x":0,"y":0}
+    }
+  ],
+  "schemaVersion": 27,
+  "title": "Oasis App - Metrics",
+  "version": 1
+}
