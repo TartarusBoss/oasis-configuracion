@@ -44,6 +44,25 @@ jobs:
           DB_PASS: test
         run: npm test -- --passWithNoTests
 
+  frontend-test:
+    name: Frontend tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - name: Install frontend deps
+        working-directory: ./frontend
+        run: npm ci --include=dev
+      - name: Run frontend tests
+        working-directory: ./frontend
+        run: npm test -- --run
+        env:
+          CI: true
+
   frontend-build:
     name: Frontend build
     runs-on: ubuntu-latest
@@ -83,7 +102,7 @@ jobs:
 
   build-and-push:
     name: Build and push Docker images
-    needs: [ backend-test, frontend-build ]
+    needs: [ backend-test, frontend-test, frontend-build ]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
