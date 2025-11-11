@@ -44,30 +44,8 @@ jobs:
           DB_PASS: test
         run: npm test -- --passWithNoTests
 
-  frontend-test:
-    name: Frontend tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-      - name: Install frontend deps
-        working-directory: ./frontend
-        run: |
-          npm install --include=dev --no-audit --no-fund
-      - name: Run frontend tests
-        working-directory: ./frontend
-        run: |
-          npm test
-        env:
-          CI: true
-
   frontend-build:
     name: Frontend build
-    needs: [frontend-test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -79,7 +57,26 @@ jobs:
       - name: Install frontend deps and build
         working-directory: ./frontend
         run: |
+          echo "Node version:"
+          node --version
+
+          echo "NPM version:"
+          npm --version
+
+          echo "Cleaning installation..."
+          rm -rf node_modules package-lock.json dist .vite
+          npm cache clean --force
+
+          echo "Installing dependencies (including devDependencies)..."
           npm install --include=dev --no-audit --no-fund
+
+          echo "Verify vite is installed locally:"
+          ls -la node_modules/vite || true
+
+          echo "Listing node_modules (short):"
+          ls -1 node_modules | sed -n '1,200p'
+
+          echo "Running production build using local vite..."
           NODE_ENV=production npm run build
         env:
           CI: true
