@@ -21,6 +21,7 @@ services:
       - DB_PASS=1234
       - DB_NAME=oasisdb
       - DB_PORT=3306
+      - USE_MYSQL=true
     ports:
       - "4000:4000"
     depends_on:

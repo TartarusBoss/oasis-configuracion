@@ -42,18 +42,17 @@ Notas importantes sobre "sin comandos":
 - El doble clic ejecuta automáticamente los pasos, pero el equipo del profesor debe tener instaladas las herramientas requeridas (Docker Desktop con Kubernetes activado, `kubectl`, y `git` si lo desea). Si falta alguna herramienta, el script imprimirá una advertencia.
 - Si prefieres soporte para macOS/Linux (un doble clic equivalente), puedo añadir un script `run-deploy.sh` que haga lo mismo en sistemas UNIX.
 
-Observabilidad incluida
------------------------
-Este repositorio ahora incluye una integración mínima de observabilidad:
-- Prometheus: recoge métricas expuestas por el backend en `/metrics`.
-- Grafana: desplegada y pre-configurada con un dashboard simple que muestra intentos de login.
+Monitoreo de Logs
+-----------------
+El sistema incluye un dashboard integrado para monitorear logs de login en tiempo real:
 
-URLs tras ejecutar el script (doble clic):
-- Grafana: http://localhost:30000  (user: admin / pass: admin)
-- Prometheus: http://localhost:30900
+**Dashboard de Logs en Memoria**: `http://localhost:4000/admin`
+- Muestra eventos recientes de login (últimas 200)
+- Gráfico de intentos por minuto
+- Botón para simular logins de prueba
+- No requiere dependencias externas (Grafana/Loki)
 
-Evidencia
----------
-El dashboard de Grafana (panel "Login attempts") ya está importado automáticamente. Puedes abrir Grafana en http://localhost:30000 y ver el panel.
-
-Si quieres, puedo exportar el JSON del dashboard a una carpeta `artifacts/` y añadir una captura; dime si la quieres incluida en el repo.
+Este dashboard es ideal para:
+- Testing y desarrollo local
+- Visualizar eventos de login rápidamente
+- Probar sin necesidad de monitoreo externo complejo
