@@ -43,6 +43,8 @@ Documentación técnica: https://docs.google.com/document/d/1dnU-oXIE7oFE6QvFcLg
 
 Como funciona Oasis? https://youtu.be/E1nBkDpWy6M
 
+DIAPOSITIVAS: https://www.canva.com/design/DAG3y8e20R4/e0AG-zbCn5nS6OUBIxtHVg/edit?utm_content=DAG3y8e20R4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 
 
 
