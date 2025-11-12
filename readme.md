@@ -37,7 +37,7 @@ https://hub.docker.com/repository/docker/tartarusboss/oasis-db/general
 
 Link de GitHub: https://github.com/TartarusBoss/oasis-configuracion.git
 
-Link del Pipeline de GitHub:
+Link del Pipeline de GitHub: https://github.com/TartarusBoss/oasis-configuracion/actions/runs/19284902711
 
 Documentación técnica: https://docs.google.com/document/d/1dnU-oXIE7oFE6QvFcLgQkRtYCa_f77BiiPgnJZ0I1Y8/edit?usp=sharing
 
