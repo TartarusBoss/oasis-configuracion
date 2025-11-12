@@ -41,6 +41,8 @@ Link del Pipeline de GitHub: https://github.com/TartarusBoss/oasis-configuracion
 
 Documentación técnica: https://docs.google.com/document/d/1dnU-oXIE7oFE6QvFcLgQkRtYCa_f77BiiPgnJZ0I1Y8/edit?usp=sharing
 
+Como funciona Oasis? https://youtu.be/E1nBkDpWy6M
+
 
 
 
