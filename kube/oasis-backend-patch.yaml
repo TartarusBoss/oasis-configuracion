@@ -4,7 +4,13 @@ metadata:
   name: oasis-backend
   namespace: default
 spec:
+  selector:
+    matchLabels:
+      app: oasis-backend
   template:
+    metadata:
+      labels:
+        app: oasis-backend
     spec:
       containers:
         - name: backend

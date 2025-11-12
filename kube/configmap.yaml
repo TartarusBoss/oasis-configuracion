@@ -9,3 +9,4 @@ data:
   NODE_ENV: "production"
   FRONTEND_URL: "http://oasis-frontend:80"
   BACKEND_PORT: "4000"
+  USE_MYSQL: "true"
