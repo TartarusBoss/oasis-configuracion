@@ -13,7 +13,7 @@ describe('Utility Functions', () => {
     });
 
     it('should truncate long strings', () => {
-      const truncate = (str, length) => str.length > length ? str.substring(0, length) + '...' : str;
+      const truncate = (str, length) => str.length > length ? str.substring(0, length).trimEnd() + '...' : str;
       expect(truncate('This is a long text', 10)).toBe('This is a...');
     });
   });
