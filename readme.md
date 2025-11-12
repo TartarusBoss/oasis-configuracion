@@ -32,7 +32,7 @@ Stack tecnológico:
 Enlaces: 
 Link de imágenes Dockerhub:
 https://hub.docker.com/repository/docker/tartarusboss/oasis-frontend/general
-hub.docker.com/repository/docker/tartarusboss/oasis-backend
+https://hub.docker.com/repository/docker/tartarusboss/oasis-backend
 https://hub.docker.com/repository/docker/tartarusboss/oasis-db/general
 
 Link de GitHub: https://github.com/TartarusBoss/oasis-configuracion.git
